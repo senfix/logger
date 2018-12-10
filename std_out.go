@@ -15,8 +15,9 @@ type StdOut struct {
 }
 
 func (s *StdOut) Enable(prefix string) Log {
-	s.Logger = log.New(os.Stdout, fmt.Sprintf("[ %v ] ", padRight(prefix, " ", NAME_LENGTH)), log.LstdFlags|log.Lmicroseconds)
-	return s
+	return &StdOut{
+		log.New(os.Stdout, fmt.Sprintf("[ %v ] ", padRight(prefix, " ", NAME_LENGTH)), log.LstdFlags|log.Lmicroseconds),
+	}
 }
 
 func (s *StdOut) Disable() Log {

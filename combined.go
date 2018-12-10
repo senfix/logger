@@ -22,10 +22,11 @@ func NewProduction() Log {
 }
 
 func (s *combined) Enable(prefix string) Log {
-	for _, l := range s.Loggers {
-		l.Enable(prefix)
+	n := &combined{make([]Log, len(s.Loggers))}
+	for i, l := range s.Loggers {
+		n.Loggers[i] = l.Enable(prefix)
 	}
-	return s
+	return n
 }
 
 func (s *combined) Disable() Log {
